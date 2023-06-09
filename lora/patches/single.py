@@ -34,7 +34,7 @@ TARGET_MODULES = [
     "q_proj",
     "v_proj",
 ]
-DATA_PATH = "alpaca_data_cleaned.json"
+DATA_PATH = "alpaca_evol_instruct_70k.json"
 OUTPUT_DIR = "lora-alpaca"
 
 device_map = "auto"
@@ -68,7 +68,7 @@ data = load_dataset("json", data_files=DATA_PATH)
 
 def generate_prompt(data_point):
     # sorry about the formatting disaster gotta move fast
-    if data_point["input"]:
+    if "input" in data_point.keys() and data_point["input"]:
         return f"""Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
 
 ### Instruction:

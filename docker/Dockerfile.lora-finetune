@@ -3,12 +3,14 @@ LABEL org.opencontainers.image.authors="soulteary@gmail.com"
 
 WORKDIR /app
 
-RUN git clone https://github.com/tloen/alpaca-lora.git
+RUN git clone https://github.com/kevinan9/alpaca-lora.git
 
 WORKDIR /app/alpaca-lora
 
-RUN pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple && \
-    pip install datasets loralib sentencepiece git+https://github.com/huggingface/transformers.git bitsandbytes git+https://github.com/huggingface/peft.git
+# RUN pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple && \
+RUN pip install datasets loralib sentencepiece git+https://github.com/huggingface/transformers.git bitsandbytes git+https://github.com/huggingface/peft.git
 
 # Patch for 1-click fine-tune
 COPY lora/patches/single.py finetune.py
+
+RUN wget https://huggingface.co/datasets/WizardLM/WizardLM_evol_instruct_70k/resolve/main/alpaca_evol_instruct_70k.json
